@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -30,7 +30,7 @@ font pango: Misc Fixed SemiCondensend 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -45,9 +45,12 @@ bindsym $mod+d exec dmenu_run
 
 #programs
 bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+p exec /home/bounteous/.config/i3/scripts/i3lock
+bindsym $mod+Shift+s exec /home/bounteous/.config/i3/scripts/shutdown
+bindsym $mod+Shift+b exec chromium
 bindsym $mod+Shift+m exec telegram-desktop
 bindsym $mod+Shift+v exec sudo virt-manager
-bindsym $mod+Shift+t exec thunar
+bindsym $mod+Shift+t exec telegram-desktop
 bindsym $mod+Shift+a exec /opt/vscode/scripts/code.sh
 
 # change focus
@@ -102,20 +105,19 @@ exec --no-startup-id xrandr --output HDMI-1 --mode 2560x1080 --right-of HDMI-0
 set $firstMonitor DP-1
 set $secondMonitor HDMI-0
 
-workspace 1 output $secondMonitor
-workspace 2 output $firstMonitor
-
+workspace $workspace2 output $secondMonitor
+workspace $workspace1 output $firstMonitor
 
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1 "
+set $workspace1 "1 "
 set $workspace2 "2 "
-set $workspace3 "3 "
+set $workspace3 "3 "
 set $workspace4 "4 "
 set $workspace5 "5 "
 set $workspace6 "6 "
-set $workspace7 "7 "
+set $workspace7 "7 "
 set $workspace8 "8 "
 set $workspace9 "9 "
 
@@ -143,7 +145,9 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 
 assign [class="Atom"] $workspace3
 assign [class="Firefox"] $workspace1
+assign [class="Chromium-browser-chromium"] $workspace1
 assign [class="Vlc"] $workspace7
+assign [class="Spotify"] $workspace7
 assign [class="Virt-manager"] $workspace4
 assign [class="code-oss-dev"] $workspace6
 assign [class="QEMU"] $workspace4
@@ -209,9 +213,10 @@ bindsym $mod+r mode "resize"
 # Force floating
 
 for_window [class="[.]*"] floating enable
-for_window [class="st-256color"] floating disable
+for_window [class="Xfce4-terminal"] floating disable
 for_window [class="code-oss-dev"] floating disable
 for_window [class="Firefox"] floating disable
+for_window [class="Chromium-browser-chromium"] floating disable
 for_window [class="Atom"] floating disable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
